@@ -1,0 +1,32 @@
+@namespace EventEaseApp.Client.Pages
+@page "/events"
+@inject EventService EventService
+
+<h3>Upcoming Events</h3>
+
+@if (events is not null && events.Any())
+{
+    <ul>
+        @foreach (var eventItem in events)
+        {
+            <li>@eventItem.Name - @eventItem.Location (@eventItem.Date.ToString("MMMM dd, yyyy"))</li>
+        }
+    </ul>
+}
+else if (events is not null && !events.Any())
+{
+    <p>No upcoming events available.</p>
+}
+else
+{
+    <p>Loading events...</p>
+}
+
+@code {
+    private List<Event>? events; // ✅ Marked nullable to prevent CS8618 warning
+
+    protected override async Task OnInitializedAsync()
+    {
+        events = await EventService.GetEventsAsync() ?? new List<Event>(); // ✅ Ensures events is never null
+    }
+}

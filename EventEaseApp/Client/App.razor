@@ -1,0 +1,24 @@
+﻿@namespace EventEaseApp.Client
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components
+@using EventEaseApp.Client.Shared
+
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <h3>Page Not Found</h3>
+    </NotFound>
+</Router>
+
+@code {
+    private RouteData? routeData;
+
+    protected override void OnInitialized()
+    {
+        routeData = new RouteData(typeof(MainLayout), new Dictionary<string, object?>() as IReadOnlyDictionary<string, object?>);
+    }
+}

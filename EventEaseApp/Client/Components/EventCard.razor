@@ -1,0 +1,18 @@
+@namespace EventEaseApp.Client.Components
+
+<div class="event-card">
+    @if (Event is not null)
+    {
+        <h3>@Event.Name</h3>
+        <p><strong>Date:</strong> @(Event.Date != default ? Event.Date.ToString("MMMM dd, yyyy") : "Unknown")</p>
+        <p><strong>Location:</strong> @(string.IsNullOrWhiteSpace(Event.Location) ? "TBA" : Event.Location)</p>
+    }
+    else
+    {
+        <p style="color: red;">Error: Invalid event data</p>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public Event Event { get; set; } = default!; // Ensures a non-null value
+}
